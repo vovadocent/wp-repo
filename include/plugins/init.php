@@ -246,9 +246,6 @@ function my_theme_register_required_plugins()
     tgmpa($plugins, $config);
 }
 
-add_filter('post_row_actions', 'tt_wp_duplicate_post_link', 10, 2 );
-add_filter('page_row_actions', 'tt_wp_duplicate_post_link', 10, 2);
-
 //Show empty categories in category widget
 function show_empty_categories_links($args) {
     $args['hide_empty'] = 0;
