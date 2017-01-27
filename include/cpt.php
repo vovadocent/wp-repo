@@ -1,65 +1,68 @@
 <?php
+
 //custom CPT
 add_action('init', 'register_cpt');
-function register_cpt(){
 
-//custom taxonomy attached to jobs CPT
-    $taxlabels = array(
-        'name' => 'taxcpt',
-        'singular_name' => 'taxcpt',
-        'search_items' => 'Search taxcpt',
-        'popular_items' => 'Popular taxcpt',
-        'all_items' => 'All taxcpts',
-        'parent_item' => 'Parent taxcpt',
-        'edit_item' => 'Edit taxcpt',
-        'update_item' => 'Update taxcpt',
-        'add_new_item' => 'Add New taxcpt',
-        'new_item_name' => 'New taxcpt',
-        'separate_items_with_commas' => 'Separate types with commas',
-        'add_or_remove_items' => 'Add or remove types',
-        'choose_from_most_used' => 'Choose from most used types'
-    );
+function register_cpt() {
+
+    register_post_type('mycpt', array(
+        'labels' => array(
+            'name' => 'My Cpt',
+            'singular_name' => 'My Cpt',
+            'add_new' => 'Add New My Cpt',
+            'add_new_item' => 'Add New My Cpt',
+            'edit_item' => 'Edit My Cpt',
+            'new_item' => 'New My Cpt',
+            'all_items' => 'All My Cpt',
+            'view_item' => 'View My Cpt',
+            'search_items' => 'Search My Cpt',
+            'not_found' => 'Not found My Cpt',
+            'not_found_in_trash' => 'No found in Trash',
+            'parent_item_colon' => '',
+            'menu_name' => 'My Cpt'
+        ),
+        'public' => true,
+        'show_ui' => true,
+        'show_in_menu' => true,
+        'supports' => array('title', 'editor', 'thumbnail'),
+        'rewrite' => array('slug' => 'mycpt'),
+        'has_archive' => true,
+        'hierarchical' => true,
+        'show_in_nav_menus' => true,
+        'capability_type' => 'page',
+        'query_var' => true,
+        'menu_icon' => 'dashicons-flag',
+    ));
+
+    //custom taxonomy attached to jobs CPT
     $taxarr = array(
-        'label' => 'taxcpt',
-        'labels' => $taxlabels,
+        'label' => 'mytax',
         'public' => true,
         'hierarchical' => true,
         'show_in_nav_menus' => true,
         'args' => array('orderby' => 'term_order'),
         'query_var' => true,
         'show_ui' => true,
-        'rewrite' => true,
+        'rewrite' => array('slug' => 'mytax'),
+        'show_admin_column' => true,
+        //tax labels
+        'labels' => array(
+            'name' => 'My Tax',
+            'singular_name' => 'My Tax',
+            'search_items' => 'Search My Tax',
+            'popular_items' => 'Popular My Tax',
+            'all_items' => 'All cities',
+            'parent_item' => 'Parent My Tax',
+            'edit_item' => 'Edit My Tax',
+            'update_item' => 'Update My Tax',
+            'add_new_item' => 'Add New My Tax',
+            'new_item_name' => 'New My Tax',
+            'separate_items_with_commas' => 'Separate My Taxes with commas',
+            'add_or_remove_items' => 'Add or remove My Tax',
+            'choose_from_most_used' => 'Choose from most used My Taxes'
+        )
     );
-    register_taxonomy('taxcpt', 'cpt', $taxarr);
+    register_taxonomy('mytax', 'mycpt', $taxarr);
 
-    register_post_type('cpt',
-        array(
-            'labels' => array(
-                'name' => 'Custom post type',
-                'singular_name' => 'cpt',
-                'add_new' => 'Add New',
-                'add_new_item' => 'Add New',
-                'edit_item' => 'Edit',
-                'new_item' => 'New',
-                'all_items' => 'All',
-                'view_item' => 'View',
-                'search_items' => 'Search',
-                'not_found' => 'Not found',
-                'not_found_in_trash' => 'No found in Trash',
-                'parent_item_colon' => '',
-                'menu_name' => 'Custom pt'
-            ),
-            'public' => true,
-            'show_ui' => true,
-            'show_in_menu' => true,
-            'supports' => array('title', 'editor', 'thumbnail'),
-            'menu_icon' => 'dashicons-flag',
-            'rewrite' => array('slug' => 'cpt'),
-            'has_archive' => true,
-            'hierarchical' => true,
-            'show_in_nav_menus' => true,
-            'capability_type' => 'page',
-            'query_var' => true,
-        ));
-// flush_rewrite_rules();
+    // flush_rewrite_rules();
 }

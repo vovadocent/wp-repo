@@ -193,8 +193,8 @@ function my_theme_register_required_plugins()
             'required' => false,
         ),
         array(
-            'name' => 'Duplicate Post',
-            'slug' => 'duplicate-post',
+            'name' => 'WP Post Duplicator',
+            'slug' => 'wp-post-duplicator',
             'required' => false,
         ),
         array(
@@ -223,6 +223,13 @@ function my_theme_register_required_plugins()
             'force_deactivation' => false, // If true, plugin is deactivated upon theme switch, useful for theme-specific plugins.
             'external_url' => 'http://www.advancedcustomfields.com/pro/', // If set, overrides default API URL and points to an external URL.
         ),
+        /*
+        array(
+            'name' => 'Advanced Custom Fields: Unique ID Field',
+            'slug' => 'acf-unique-id-field',
+            'required' => false,
+        ),
+        */
     );
     /**
      * Array of configuration settings. Amend each line as needed.
@@ -500,6 +507,35 @@ if ( ! function_exists( 'is_ajax' ) ) {
 	function is_ajax() {
 		return defined( 'DOING_AJAX' );
 	}
+}
+
+/// ACF readonly, disabled ///
+add_action('acf/render_field_settings/type=text', 'add_readonly_and_disabled_to_text_field');
+function add_readonly_and_disabled_to_text_field($field) {
+    acf_render_field_setting($field, array(
+        'label' => __('Read Only?', 'acf'),
+        'instructions' => '',
+        'type' => 'radio',
+        'name' => 'readonly',
+        'choices' => array(
+            1 => __("Yes", 'acf'),
+            0 => __("No", 'acf'),
+        ),
+        'value' => 0,
+        'layout' => 'horizontal',
+    ));
+    acf_render_field_setting($field, array(
+        'label' => __('Disabled?', 'acf'),
+        'instructions' => '',
+        'type' => 'radio',
+        'name' => 'disabled',
+        'choices' => array(
+            1 => __("Yes", 'acf'),
+            0 => __("No", 'acf'),
+        ),
+        'value' => 0,
+        'layout' => 'horizontal',
+    ));
 }
 
 // HTML5 support for IE
