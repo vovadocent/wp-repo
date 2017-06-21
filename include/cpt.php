@@ -3,7 +3,38 @@
 //custom CPT
 add_action('init', 'register_cpt');
 
+
 function register_cpt() {
+
+    //custom taxonomy attached to jobs CPT
+    $taxarr = array(
+        'label' => 'mytax',
+        'public' => true,
+        'hierarchical' => true,
+        'show_in_nav_menus' => true,
+        'args' => array('orderby' => 'term_order'),
+        'query_var' => true,
+        'show_ui' => true,
+        'rewrite' => array('slug' => 'mytax'),
+        'show_admin_column' => true,
+        //tax labels
+        'labels' => array(
+            'name' => 'My Tax',
+            'singular_name' => 'My Tax',
+            'search_items' => 'Search My Tax',
+            'popular_items' => 'Popular My Tax',
+            'all_items' => 'All My Taxes',
+            'parent_item' => 'Parent My Tax',
+            'edit_item' => 'Edit My Tax',
+            'update_item' => 'Update My Tax',
+            'add_new_item' => 'Add New My Tax',
+            'new_item_name' => 'New My Tax',
+            'separate_items_with_commas' => 'Separate My Taxes with commas',
+            'add_or_remove_items' => 'Add or remove My Tax',
+            'choose_from_most_used' => 'Choose from most used My Taxes'
+        )
+    );
+    register_taxonomy('mytax', 'mycpt', $taxarr);
 
     register_post_type('mycpt', array(
         'labels' => array(
@@ -25,7 +56,7 @@ function register_cpt() {
         'show_ui' => true,
         'show_in_menu' => true,
         'supports' => array('title', 'editor', 'thumbnail'),
-        'rewrite' => array('slug' => 'mycpt'),
+        'rewrite' => array('slug' => 'mycpt', 'with_front' => false, 'pages' => true, 'feeds' => false),
         'has_archive' => true,
         'hierarchical' => true,
         'show_in_nav_menus' => true,
@@ -34,35 +65,6 @@ function register_cpt() {
         'menu_icon' => 'dashicons-flag',
     ));
 
-    //custom taxonomy attached to jobs CPT
-    $taxarr = array(
-        'label' => 'mytax',
-        'public' => true,
-        'hierarchical' => true,
-        'show_in_nav_menus' => true,
-        'args' => array('orderby' => 'term_order'),
-        'query_var' => true,
-        'show_ui' => true,
-        'rewrite' => array('slug' => 'mytax'),
-        'show_admin_column' => true,
-        //tax labels
-        'labels' => array(
-            'name' => 'My Tax',
-            'singular_name' => 'My Tax',
-            'search_items' => 'Search My Tax',
-            'popular_items' => 'Popular My Tax',
-            'all_items' => 'All cities',
-            'parent_item' => 'Parent My Tax',
-            'edit_item' => 'Edit My Tax',
-            'update_item' => 'Update My Tax',
-            'add_new_item' => 'Add New My Tax',
-            'new_item_name' => 'New My Tax',
-            'separate_items_with_commas' => 'Separate My Taxes with commas',
-            'add_or_remove_items' => 'Add or remove My Tax',
-            'choose_from_most_used' => 'Choose from most used My Taxes'
-        )
-    );
-    register_taxonomy('mytax', 'mycpt', $taxarr);
 
     // flush_rewrite_rules();
 }
